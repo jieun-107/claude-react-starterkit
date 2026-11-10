@@ -3,11 +3,13 @@ import { RootLayout } from '@/layouts/RootLayout'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 import { HomePage } from '@/pages/HomePage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
+import { RouteErrorPage } from '@/pages/RouteErrorPage'
 
-// 라우트 정의: 레이아웃 라우트 + 중첩 라우트 + 보호 라우트 + lazy 로딩
+// 라우트 정의: 레이아웃 라우트 + 중첩 라우트 + 보호 라우트 + lazy 로딩 + 오류 페이지
 const router = createBrowserRouter([
   {
     Component: RootLayout,
+    errorElement: <RouteErrorPage />,
     children: [
       { index: true, Component: HomePage },
       {
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
       {
         path: 'login',
         lazy: () => import('@/pages/LoginPage').then((m) => ({ Component: m.LoginPage })),
+      },
+      {
+        path: 'posts',
+        lazy: () => import('@/pages/PostsPage').then((m) => ({ Component: m.PostsPage })),
+      },
+      {
+        path: 'posts/:id',
+        lazy: () => import('@/pages/PostDetailPage').then((m) => ({ Component: m.PostDetailPage })),
       },
       {
         element: <ProtectedRoute />,

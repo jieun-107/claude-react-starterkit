@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router'
 import { Button } from '@/components/ui/Button'
+import { Toaster } from '@/components/Toaster'
 import { useAuthStore } from '@/stores/authStore'
 import { useThemeStore } from '@/stores/themeStore'
 import { cn } from '@/lib/cn'
@@ -7,6 +8,7 @@ import { cn } from '@/lib/cn'
 const navItems = [
   { to: '/', label: '홈', end: true },
   { to: '/about', label: '소개' },
+  { to: '/posts', label: 'Posts' },
   { to: '/todos', label: 'Todos' },
 ]
 
@@ -66,6 +68,8 @@ export function RootLayout() {
       <footer className="border-t border-slate-200 py-4 text-center text-xs text-slate-500 dark:border-slate-800">
         © {new Date().getFullYear()} React Starter Kit
       </footer>
+
+      <Toaster />
     </div>
   )
 }
