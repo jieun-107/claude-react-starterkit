@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import { createPost, getPost, getPosts } from '@/api/posts'
-import { toast } from '@/stores/toastStore'
 
 // 목록 조회 (GET). 오류는 화면에서 ErrorMessage로 직접 표시하므로 silent
 export function usePosts(limit = 10) {

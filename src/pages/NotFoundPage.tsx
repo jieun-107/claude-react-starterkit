@@ -1,12 +1,15 @@
+import { Home } from 'lucide-react'
 import { Link } from 'react-router'
+import { buttonVariants } from '@/components/ui/button'
 
 // 존재하지 않는 경로 처리
 export function NotFoundPage() {
   return (
-    <section className="space-y-3 text-center">
-      <h1 className="text-3xl font-bold">404</h1>
-      <p className="text-slate-600 dark:text-slate-400">페이지를 찾을 수 없습니다.</p>
-      <Link to="/" className="text-indigo-600 underline">
+    <section className="flex flex-col items-center gap-4 py-12 text-center">
+      <h1 className="text-5xl font-bold tracking-tight">404</h1>
+      <p className="text-muted-foreground">페이지를 찾을 수 없습니다.</p>
+      <Link to="/" className={buttonVariants({ variant: 'outline' })}>
+        <Home />
         홈으로 이동
       </Link>
     </section>

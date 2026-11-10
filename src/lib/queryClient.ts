@@ -1,6 +1,6 @@
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import { toApiError } from '@/lib/apiError'
-import { toast } from '@/stores/toastStore'
 
 // 재시도해도 결과가 같은 4xx 오류는 재시도하지 않음 (네트워크/5xx 등 일시적 오류만 1회 재시도)
 const NO_RETRY_STATUSES = [400, 401, 403, 404, 409, 422]
@@ -11,7 +11,7 @@ function shouldRetry(failureCount: number, error: unknown): boolean {
   return failureCount < 1
 }
 
-// 전역 오류 처리:
+// 전역 오류 처리 (알림은 Sonner 토스트 사용):
 // - 쿼리 오류는 meta.silent가 아닌 경우에만 토스트 표시 (화면에 직접 표시하는 쿼리는 silent 사용)
 // - 뮤테이션(등록/수정/삭제) 오류는 항상 토스트 표시
 const queryCache = new QueryCache({

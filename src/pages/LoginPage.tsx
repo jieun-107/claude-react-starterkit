@@ -1,9 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { LoaderCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { useLocation, useNavigate } from 'react-router'
-import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
+import { z } from 'zod'
+import { FormField } from '@/components/FormField'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
 import { useAuthStore } from '@/stores/authStore'
 
 // 폼 검증 스키마 (Zod 4)
@@ -36,27 +39,39 @@ export function LoginPage() {
   }
 
   return (
-    <section className="mx-auto max-w-sm space-y-6">
-      <h1 className="text-2xl font-bold">로그인</h1>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
-        <Input
-          label="이메일"
-          type="email"
-          autoComplete="email"
-          error={errors.email?.message}
-          {...register('email')}
-        />
-        <Input
-          label="비밀번호"
-          type="password"
-          autoComplete="current-password"
-          error={errors.password?.message}
-          {...register('password')}
-        />
-        <Button type="submit" className="w-full" disabled={isSubmitting}>
-          {isSubmitting ? '로그인 중...' : '로그인'}
-        </Button>
-      </form>
-    </section>
+    <Card className="mx-auto max-w-sm">
+      <CardHeader>
+        <CardTitle>로그인</CardTitle>
+        <CardDescription>
+          데모 로그인입니다. 올바른 이메일과 8자 이상의 비밀번호를 입력하세요.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate className="grid gap-4">
+          <FormField id="email" label="이메일" error={errors.email?.message}>
+            <Input
+              id="email"
+              type="email"
+              autoComplete="email"
+              aria-invalid={Boolean(errors.email)}
+              {...register('email')}
+            />
+          </FormField>
+          <FormField id="password" label="비밀번호" error={errors.password?.message}>
+            <Input
+              id="password"
+              type="password"
+              autoComplete="current-password"
+              aria-invalid={Boolean(errors.password)}
+              {...register('password')}
+            />
+          </FormField>
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
+            {isSubmitting && <LoaderCircle className="animate-spin" />}
+            {isSubmitting ? '로그인 중...' : '로그인'}
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
   )
 }
