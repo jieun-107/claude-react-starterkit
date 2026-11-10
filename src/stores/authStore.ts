@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { queryClient } from '@/lib/queryClient'
 
 interface AuthState {
   user: { email: string } | null
@@ -16,7 +17,11 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       token: null,
       login: (email) => set({ user: { email }, token: 'demo-token' }),
-      logout: () => set({ user: null, token: null }),
+      logout: () => {
+        set({ user: null, token: null })
+        // 이전 사용자의 서버 상태 캐시를 제거해 다음 로그인 사용자에게 노출되지 않도록 함
+        queryClient.clear()
+      },
     }),
     { name: 'auth-storage' },
   ),
