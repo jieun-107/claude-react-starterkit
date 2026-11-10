@@ -11,6 +11,7 @@ coverage
 # 에디터/OS
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .idea
 .DS_Store
 *.log
