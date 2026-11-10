@@ -1,0 +1,16 @@
+# 의존성 및 빌드 산출물
+node_modules
+dist
+coverage
+
+# 환경 변수 (실제 값은 커밋하지 않음)
+.env
+.env.local
+.env.*.local
+
+# 에디터/OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.log
